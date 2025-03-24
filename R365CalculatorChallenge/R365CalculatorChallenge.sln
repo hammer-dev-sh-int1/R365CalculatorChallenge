@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34928.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R365CalculatorChallenge", "R365CalculatorChallenge\R365CalculatorChallenge.csproj", "{DDC7620F-1E97-4728-9D08-604CA605322E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R365CalculatorChallenge.Tests", "R365CalculatorChallenge.Tests\R365CalculatorChallenge.Tests.csproj", "{5E01DBE2-2E7C-41F4-BA42-1B7BE3763FDE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DDC7620F-1E97-4728-9D08-604CA605322E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDC7620F-1E97-4728-9D08-604CA605322E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDC7620F-1E97-4728-9D08-604CA605322E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDC7620F-1E97-4728-9D08-604CA605322E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E01DBE2-2E7C-41F4-BA42-1B7BE3763FDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E01DBE2-2E7C-41F4-BA42-1B7BE3763FDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E01DBE2-2E7C-41F4-BA42-1B7BE3763FDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E01DBE2-2E7C-41F4-BA42-1B7BE3763FDE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E41324F4-9156-4687-B424-001C291022BD}
+	EndGlobalSection
+EndGlobal
