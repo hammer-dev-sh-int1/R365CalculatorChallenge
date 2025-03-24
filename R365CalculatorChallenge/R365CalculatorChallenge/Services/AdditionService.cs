@@ -13,13 +13,7 @@ namespace R365CalculatorChallenge.Services
         public double Calculate(string input)
         {
             // parse/split the input based on comma delim
-            string[] numbers = input.Split(',');
-
-            // force max constraint on input of 2 numbers
-            if (numbers.Length > 2)
-            {
-                throw new InvalidInputException("Input must contain 2 numbers.");
-            }
+            string[] numbers = input.Split(',');            
 
             // keep this for tracking total(s)
             double sum = 0;

@@ -32,14 +32,13 @@ namespace R365CalculatorChallenge.Tests
         }
 
         [TestMethod]
-        public void Calculate_InputWithMoreThanTwoNumbers_ThrowsInvalidInputException()
+        public void Calculate_InputWithMoreThanTwoNumbers_ReturnsCorrectSum()
         {
-            // should trip the constraint of 2
-            string input = "2,3,4";
+            string input = "1,2,3,4";
+            double result = _calculationService.Calculate(input);
 
             // make assert(s)
-            var exception = Assert.ThrowsException<InvalidInputException>(() => _calculationService.Calculate(input));
-            Assert.AreEqual("Invalid Input for Calculation:  Input must contain 2 numbers.", exception.Message);
+            Assert.AreEqual(10, result);
         }
 
         [TestMethod]
