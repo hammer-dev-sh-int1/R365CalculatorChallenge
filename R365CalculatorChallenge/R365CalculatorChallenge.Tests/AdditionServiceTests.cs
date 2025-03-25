@@ -116,5 +116,15 @@ namespace R365CalculatorChallenge.Tests
             Assert.AreEqual("Invalid Input for Calculation:  Cannot contain negative numbers: -6",
                                                         exception.Message);
         }
+
+        [TestMethod]
+        public void Calculate_ValidInput_ContainsNumberOver1000_ReturnsCorrectSum_CommaDelimiter()
+        {
+            string input = "2,1001,6";
+            double result = _calculationService.Calculate(input);
+
+            // make assert(s)
+            Assert.AreEqual(8, result);
+        }
     }
 }

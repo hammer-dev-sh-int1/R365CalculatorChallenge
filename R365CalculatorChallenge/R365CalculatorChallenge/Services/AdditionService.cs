@@ -27,6 +27,9 @@ namespace R365CalculatorChallenge.Services
                 // this will try to parse the number (default to 0 if cannot) 
                 var currentNumber = double.TryParse(number, out var result) ? result : 0;
 
+                // we need to treat any number > 1000 as 0 (invalid)
+                currentNumber = currentNumber > 1000 ? 0 : currentNumber;
+
                 // we need to deny negative numbers here and store them to include in the exception
                 if (currentNumber < 0)
                 {
