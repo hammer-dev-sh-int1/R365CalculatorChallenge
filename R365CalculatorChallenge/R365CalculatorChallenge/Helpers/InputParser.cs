@@ -9,27 +9,36 @@ namespace R365CalculatorChallenge.Helpers
 {
     public static class InputParser
     {
-        public static (bool, string) ParseInputForCustomDelimter(string input)
+        public static (bool, List<string>) ParseInputForCustomDelimter(string input)
         {
             // regex pattern to match on spec:  //[{delimiter}]\n{numbers}
+            // new addition of:  //[{delimiter1}][{delimiter2}]...\n{numbers}
             // we also need to accomodate previous format of:  //{delimiter}\n{numbers}
 
-            string pattern = @"^//\[(.*?)\]";
+            string pattern = @"^//(\[[^\]]+\])+(?=\n)";
+            List<string> lstDelimiters = new();
 
             Match match = Regex.Match(input, pattern);
             if (match.Success)
             {
-                // the user has specified the new string delimiter
-                return (true, match.Groups[1].Value);
+                // extract all the delimiters from the matched sequence
+                foreach (Match delimiterMatch in Regex.Matches(match.Value, @"\[[^\]]+\]"))
+                {
+                    string delimiter = delimiterMatch.Value.Trim('[', ']'); // Remove brackets
+                    lstDelimiters.Add(delimiter);
+                }
             }
             else
             {
                 // lets see if the user has specified the old char delimiter format
                 if (input.StartsWith("//"))
-                    return (true, input[2].ToString());
+                {
+                    // grab character after //
+                    lstDelimiters.Add(input[2].ToString());
+                }                
+            }
 
-                return (false, String.Empty);
-            }            
+            return (lstDelimiters.Count > 0, lstDelimiters);
         }
     }
 }

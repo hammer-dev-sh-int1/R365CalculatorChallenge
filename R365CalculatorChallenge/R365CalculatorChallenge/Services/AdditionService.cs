@@ -17,12 +17,13 @@ namespace R365CalculatorChallenge.Services
         public double Calculate(string input)
         {
             // we need to see if the user is supplying a custom character delimter
-            (bool hasCustomInput, string customDelimiter) = InputParser.ParseInputForCustomDelimter(input);
+            (bool hasCustomInput, List<string> lstCustomDelimiter) = InputParser.ParseInputForCustomDelimter(input);
 
             // if it has a custom input, we want to append it to the list of acceptable delims
             if (hasCustomInput)
             {
-                lstSupportedDelimiters.Add(customDelimiter);
+                // merge our default list with anything returned from parsed input
+                lstSupportedDelimiters.AddRange(lstCustomDelimiter);
             }
 
             // split the string on allowed delimiters (',' and '-'), changed to use a list so we can add (Req6)

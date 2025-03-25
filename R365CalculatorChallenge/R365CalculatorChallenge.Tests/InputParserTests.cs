@@ -21,7 +21,20 @@ namespace R365CalculatorChallenge.Tests
 
             // make asserts based on tuple return
             Assert.IsTrue(result.Item1);        
-            Assert.AreEqual("#", result.Item2);
+            Assert.AreEqual("#", result.Item2.First()); // the list should only have one element
+        }
+
+        [TestMethod]
+        public void ParseInputForCustomDelimter_ValidInputWithCustomDelimiter_ReturnsOnlyAListWithOneValue()
+        {
+            // here we're supplying the custom delimiter
+
+            string input = "//#\n2#5";
+            var result = InputParser.ParseInputForCustomDelimter(input);
+
+            // make asserts based on tuple return
+            Assert.IsTrue(result.Item1);
+            Assert.AreEqual(1, result.Item2.Count()); // the list should only have one element
         }
 
         [TestMethod]
@@ -34,20 +47,20 @@ namespace R365CalculatorChallenge.Tests
 
             // make asserts based on tuple return
             Assert.IsFalse(result.Item1);
-            Assert.AreEqual(String.Empty, result.Item2);
-        }
+            Assert.AreEqual(0, result.Item2.Count());  // the list should have 0 elements
+         }
 
         [TestMethod]
         public void ParseInputForCustomDelimter_EmptyInput_ReturnsFalseAndDefaultDelimiter()
         {
-            // here we're NOT supplying anything, should return default delim
+            // here we're NOT supplying anything, should return empty list
 
             string input = "1,2,3";
             var result = InputParser.ParseInputForCustomDelimter(input);
 
             // make asserts based on tuple return
             Assert.IsFalse(result.Item1);
-            Assert.AreEqual(String.Empty, result.Item2);
+            Assert.AreEqual(0, result.Item2.Count()); // this list should have 0 elements
         }
 
         [TestMethod]
@@ -59,7 +72,7 @@ namespace R365CalculatorChallenge.Tests
 
             // make asserts based on tuple return
             Assert.IsTrue(result.Item1);      
-            Assert.AreEqual("&", result.Item2);
+            Assert.AreEqual("&", result.Item2.First());  // the list should only have one element
         }
 
         [TestMethod]
@@ -71,7 +84,7 @@ namespace R365CalculatorChallenge.Tests
 
             // make asserts based on tuple return
             Assert.IsTrue(result.Item1); 
-            Assert.AreEqual(";", result.Item2);
+            Assert.AreEqual(";", result.Item2.First()); // the list should only have one element
         }
 
         [TestMethod]
@@ -83,7 +96,21 @@ namespace R365CalculatorChallenge.Tests
 
             // make asserts based on tuple return
             Assert.IsTrue(result.Item1);
-            Assert.AreEqual("***", result.Item2);
+            Assert.AreEqual("***", result.Item2.First());  // the list should only have one element
+        }
+
+        [TestMethod]
+        public void ParseInputForCustomDelimter_InputWithMultipleCustomDelimiter_String_ReturnsTrueAndDelimiters()
+        {
+            // this has a custom delim with multiple chars (string)
+            string input = "//[*][!!][r9r]\n11r9r22*hh*33!!44";
+            var result = InputParser.ParseInputForCustomDelimter(input);
+
+            // make asserts based on tuple return
+            Assert.IsTrue(result.Item1);
+            Assert.AreEqual("*", result.Item2[0]);
+            Assert.AreEqual("!!", result.Item2[1]);
+            Assert.AreEqual("r9r", result.Item2[2]);
         }
     }
 }
