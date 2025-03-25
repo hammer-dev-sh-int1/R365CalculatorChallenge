@@ -22,13 +22,23 @@ namespace R365CalculatorChallenge.Tests
         }
 
         [TestMethod]
-        public void Calculate_ValidInput_ReturnsCorrectSum()
+        public void Calculate_ValidInput_ReturnsCorrectSum_CommaDelimiter()
         {
             string input = "2,3";
             double result = _calculationService.Calculate(input);
 
             // make assert(s)
             Assert.AreEqual(5, result);
+        }
+
+        [TestMethod]
+        public void Calculate_ValidInput_ReturnsCorrectSum_NewLineDelimiter()
+        {
+            string input = "3\n6";
+            double result = _calculationService.Calculate(input);
+
+            // make assert(s)
+            Assert.AreEqual(9, result);
         }
 
         [TestMethod]

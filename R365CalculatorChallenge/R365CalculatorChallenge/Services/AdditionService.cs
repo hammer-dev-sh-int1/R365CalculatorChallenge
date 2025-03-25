@@ -12,8 +12,8 @@ namespace R365CalculatorChallenge.Services
     {
         public double Calculate(string input)
         {
-            // parse/split the input based on comma delim
-            string[] numbers = input.Split(',');            
+            // split the string on allowed delimiters (',' and '\n')
+            var numbers = input.Split(new[] { ',', '\n' }, StringSplitOptions.None);
 
             // keep this for tracking total(s)
             double sum = 0;
