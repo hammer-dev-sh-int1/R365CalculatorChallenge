@@ -11,9 +11,8 @@ namespace R365CalculatorChallenge
 
             try
             {
-                //Console.WriteLine(additionService.Calculate("1,2,3,4,5,6,7,8,9,10,11,12"));
-                Console.WriteLine(additionService.Calculate("//[*][!!][r9r]\n11r9r22*hh*33!!44"));
-                
+                var result = additionService.Calculate("2,,4,rrrr,1001,6");
+                Console.WriteLine(result.FormulaWithAnswer);
             }
             catch (InvalidInputException ex)
             {

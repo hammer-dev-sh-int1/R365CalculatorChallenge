@@ -1,6 +1,7 @@
 ﻿using R365CalculatorChallenge.Exceptions;
 using R365CalculatorChallenge.Helpers;
 using R365CalculatorChallenge.Interfaces;
+using R365CalculatorChallenge.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace R365CalculatorChallenge.Services
         // supported default delimiters, list format so we can append
         List<string> lstSupportedDelimiters = new List<string>() { ",", "\n" };
 
-        public double Calculate(string input)
+        public CalculationResult Calculate(string input)
         {
             // we need to see if the user is supplying a custom character delimter
             (bool hasCustomInput, List<string> lstCustomDelimiter) = InputParser.ParseInputForCustomDelimter(input);
@@ -31,6 +32,7 @@ namespace R365CalculatorChallenge.Services
 
             // keep this for tracking total(s)
             double sum = 0;
+            List<double> lstNumbersForCalculation = new();
 
             // keep this for tracking negative numbers
             List<double> lstNegativeNumbers = new();
@@ -43,6 +45,9 @@ namespace R365CalculatorChallenge.Services
 
                 // we need to treat any number > 1000 as 0 (invalid)
                 currentNumber = currentNumber > 1000 ? 0 : currentNumber;
+
+                // add to the list so that we can provide the formula used to calculate result
+                lstNumbersForCalculation.Add(currentNumber);
 
                 // we need to deny negative numbers here and store them to include in the exception
                 if (currentNumber < 0)
@@ -63,7 +68,8 @@ namespace R365CalculatorChallenge.Services
                 throw new InvalidInputException($"Cannot contain negative numbers: {String.Join(',', lstNegativeNumbers)}");
             }
 
-            return sum;
+            // returning new object so we can display the sum and/
+            return new CalculationResult(sum, String.Join('+', lstNumbersForCalculation));
         }
     }
 }

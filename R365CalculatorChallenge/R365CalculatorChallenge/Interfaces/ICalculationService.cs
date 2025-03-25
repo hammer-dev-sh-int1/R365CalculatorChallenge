@@ -1,4 +1,5 @@
-﻿using System;
+﻿using R365CalculatorChallenge.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace R365CalculatorChallenge.Interfaces
 {
     public interface ICalculationService
     {
-        double Calculate(string input);
+        CalculationResult Calculate(string input);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using R365CalculatorChallenge.Exceptions;
 using R365CalculatorChallenge.Interfaces;
+using R365CalculatorChallenge.Models;
 using R365CalculatorChallenge.Services;
 using System;
 using System.Collections.Generic;
@@ -25,30 +26,30 @@ namespace R365CalculatorChallenge.Tests
         public void Calculate_ValidInput_ReturnsCorrectSum_CommaDelimiter()
         {
             string input = "2,3";
-            double result = _calculationService.Calculate(input);
+            CalculationResult result = _calculationService.Calculate(input);
 
             // make assert(s)
-            Assert.AreEqual(5, result);
+            Assert.AreEqual(5, result.Sum);
         }
 
         [TestMethod]
         public void Calculate_ValidInput_ReturnsCorrectSum_NewLineDelimiter()
         {
             string input = "3\n6";
-            double result = _calculationService.Calculate(input);
+            CalculationResult result = _calculationService.Calculate(input);
 
             // make assert(s)
-            Assert.AreEqual(9, result);
+            Assert.AreEqual(9, result.Sum);
         }
 
         [TestMethod]
         public void Calculate_InputWithMoreThanTwoNumbers_ReturnsCorrectSum()
         {
             string input = "1,2,3,4";
-            double result = _calculationService.Calculate(input);
+            CalculationResult result = _calculationService.Calculate(input);
 
             // make assert(s)
-            Assert.AreEqual(10, result);
+            Assert.AreEqual(10, result.Sum);
         }
 
         [TestMethod]
@@ -56,10 +57,10 @@ namespace R365CalculatorChallenge.Tests
         {
             // should ignore abc and treat as 0
             string input = "2,abc";
-            double result = _calculationService.Calculate(input);
+            CalculationResult result = _calculationService.Calculate(input);
 
             // make assert(s)
-            Assert.AreEqual(2, result);
+            Assert.AreEqual(2, result.Sum);
         }
 
         [TestMethod]
@@ -67,30 +68,30 @@ namespace R365CalculatorChallenge.Tests
         {
             // basically passing in nothing, but should default to 0s
             string input = ",";
-            double result = _calculationService.Calculate(input);
+            CalculationResult result = _calculationService.Calculate(input);
 
             // make assert(s)
-            Assert.AreEqual(0, result);
+            Assert.AreEqual(0, result.Sum);
         }
 
         [TestMethod]
         public void Calculate_InputWithEmptyValue_ReturnsCorrectSum()
         {
             string input = "5,";
-            double result = _calculationService.Calculate(input);
+            CalculationResult result = _calculationService.Calculate(input);
 
             // make assert(s)
-            Assert.AreEqual(5, result);
+            Assert.AreEqual(5, result.Sum);
         }
 
         [TestMethod]
         public void Calculate_ValidInputWithZero_ReturnsZero()
         {
             string input = "0,0";
-            double result = _calculationService.Calculate(input);
+            CalculationResult result = _calculationService.Calculate(input);
 
             // make assert(s)
-            Assert.AreEqual(0, result);
+            Assert.AreEqual(0, result.Sum);
         }
 
         [TestMethod]
@@ -121,40 +122,50 @@ namespace R365CalculatorChallenge.Tests
         public void Calculate_ValidInput_ContainsNumberOver1000_ReturnsCorrectSum_CommaDelimiter()
         {
             string input = "2,1001,6";
-            double result = _calculationService.Calculate(input);
+            CalculationResult result = _calculationService.Calculate(input);
 
             // make assert(s)
-            Assert.AreEqual(8, result);
+            Assert.AreEqual(8, result.Sum);
         }
 
         [TestMethod]
         public void Calculate_ValidInput_CustomDelimiter_ReturnsCorrectSum_CommaDelimiter()
         {
             string input = "//#\n2#5";
-            double result = _calculationService.Calculate(input);
+            CalculationResult result = _calculationService.Calculate(input);
 
             // make assert(s)
-            Assert.AreEqual(7, result);
+            Assert.AreEqual(7, result.Sum);
         }
 
         [TestMethod]
         public void Calculate_ValidInput_CustomDelimiter_AnyLength_ReturnsCorrectSum_CommaDelimiter()
         {
             string input = "//[***]\n11***22***33";
-            double result = _calculationService.Calculate(input);
+            CalculationResult result = _calculationService.Calculate(input);
 
             // make assert(s)
-            Assert.AreEqual(66, result);
+            Assert.AreEqual(66, result.Sum);
         }
 
         [TestMethod]
         public void Calculate_ValidInput_MultipleCustomDelimiter_AnyLength_ReturnsCorrectSum_CommaDelimiter()
         {
             string input = "//[*][!!][r9r]\n11r9r22*hh*33!!44";
-            double result = _calculationService.Calculate(input);
+            CalculationResult result = _calculationService.Calculate(input);
 
             // make assert(s)
-            Assert.AreEqual(110, result);
+            Assert.AreEqual(110, result.Sum);
+        }
+
+        [TestMethod]
+        public void Calculate_ValidInput_ValidatesStepsInFormula()
+        {
+            string input = "2,,4,rrrr,1001,6";
+            CalculationResult result = _calculationService.Calculate(input);
+
+            // make assert(s)
+            Assert.AreEqual(6, result.TotalNumbersInFormula);
         }
     }
 }
