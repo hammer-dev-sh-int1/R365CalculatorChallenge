@@ -12,12 +12,12 @@ namespace R365CalculatorChallenge.Services
     public class AdditionService : ICalculationService
     {
         // supported default delimiters, list format so we can append
-        List<char> lstSupportedDelimiters = new List<char>() { ',', '\n' };
-        
+        List<string> lstSupportedDelimiters = new List<string>() { ",", "\n" };
+
         public double Calculate(string input)
         {
             // we need to see if the user is supplying a custom character delimter
-            (bool hasCustomInput, char customDelimiter) = InputParser.ParseInputForCustomDelimter(input);
+            (bool hasCustomInput, string customDelimiter) = InputParser.ParseInputForCustomDelimter(input);
 
             // if it has a custom input, we want to append it to the list of acceptable delims
             if (hasCustomInput)

@@ -21,7 +21,7 @@ namespace R365CalculatorChallenge.Tests
 
             // make asserts based on tuple return
             Assert.IsTrue(result.Item1);        
-            Assert.AreEqual('#', result.Item2);
+            Assert.AreEqual("#", result.Item2);
         }
 
         [TestMethod]
@@ -34,7 +34,7 @@ namespace R365CalculatorChallenge.Tests
 
             // make asserts based on tuple return
             Assert.IsFalse(result.Item1);
-            Assert.AreEqual('\0', result.Item2);
+            Assert.AreEqual(String.Empty, result.Item2);
         }
 
         [TestMethod]
@@ -47,7 +47,7 @@ namespace R365CalculatorChallenge.Tests
 
             // make asserts based on tuple return
             Assert.IsFalse(result.Item1);
-            Assert.AreEqual('\0', result.Item2);
+            Assert.AreEqual(String.Empty, result.Item2);
         }
 
         [TestMethod]
@@ -59,7 +59,7 @@ namespace R365CalculatorChallenge.Tests
 
             // make asserts based on tuple return
             Assert.IsTrue(result.Item1);      
-            Assert.AreEqual('&', result.Item2);
+            Assert.AreEqual("&", result.Item2);
         }
 
         [TestMethod]
@@ -71,7 +71,19 @@ namespace R365CalculatorChallenge.Tests
 
             // make asserts based on tuple return
             Assert.IsTrue(result.Item1); 
-            Assert.AreEqual(';', result.Item2);
+            Assert.AreEqual(";", result.Item2);
+        }
+
+        [TestMethod]
+        public void ParseInputForCustomDelimter_InputWithCustomDelimiter_String_ReturnsTrueAndDelimiter()
+        {
+            // this has a custom delim with multiple chars (string)
+            string input = "//[***]\n11***22***33";
+            var result = InputParser.ParseInputForCustomDelimter(input);
+
+            // make asserts based on tuple return
+            Assert.IsTrue(result.Item1);
+            Assert.AreEqual("***", result.Item2);
         }
     }
 }
