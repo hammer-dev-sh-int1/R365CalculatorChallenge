@@ -92,5 +92,29 @@ namespace R365CalculatorChallenge.Tests
             // make assert(s)
             Assert.AreEqual(0, result);
         }
+
+        [TestMethod]
+        public void Calculate_DenyNegativeNumbers_ThrowsInvalidInputException_CommaDelim()
+        {
+            // should trip the constraint of 2
+            string input = "1,-2,3,-4";
+
+            // make assert(s)
+            var exception = Assert.ThrowsException<InvalidInputException>(() => _calculationService.Calculate(input));
+            Assert.AreEqual("Invalid Input for Calculation:  Cannot contain negative numbers: -2,-4", 
+                                                        exception.Message);
+        }
+
+        [TestMethod]
+        public void Calculate_DenyNegativeNumbers_ThrowsInvalidInputException_NewLine()
+        {
+            // should trip the constraint of 2
+            string input = "1\n2\n-6";
+
+            // make assert(s)
+            var exception = Assert.ThrowsException<InvalidInputException>(() => _calculationService.Calculate(input));
+            Assert.AreEqual("Invalid Input for Calculation:  Cannot contain negative numbers: -6",
+                                                        exception.Message);
+        }
     }
 }

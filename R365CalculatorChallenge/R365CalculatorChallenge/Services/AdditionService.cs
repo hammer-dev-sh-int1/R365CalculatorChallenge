@@ -18,12 +18,32 @@ namespace R365CalculatorChallenge.Services
             // keep this for tracking total(s)
             double sum = 0;
 
+            // keep this for tracking negative numbers
+            List<double> lstNegativeNumbers = new();
+
             // iterate through the string array, convert our strings to numbers, perform the operation(s)
             foreach (string number in numbers)
             {
-                // this will try to parse the number (default to 0 if cannot) and incremement our couter (sum)
-                // this handles invalid numbers and empty/missing inputs
-                sum += double.TryParse(number, out var result) ? result : 0;
+                // this will try to parse the number (default to 0 if cannot) 
+                var currentNumber = double.TryParse(number, out var result) ? result : 0;
+
+                // we need to deny negative numbers here and store them to include in the exception
+                if (currentNumber < 0)
+                {
+                    // store the negative numbers in a list - we will store them all as it does not specify only unique
+                    lstNegativeNumbers.Add(currentNumber);
+                }
+                else
+                {
+                    // add only the positive numbers
+                    sum += currentNumber;
+                }
+            }
+
+            if (lstNegativeNumbers.Count > 0)
+            {
+                // throw an exception here because the list contained negative numbers
+                throw new InvalidInputException($"Cannot contain negative numbers: {String.Join(',', lstNegativeNumbers)}");
             }
 
             return sum;
