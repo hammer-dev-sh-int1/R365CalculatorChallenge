@@ -1,4 +1,5 @@
 ﻿using R365CalculatorChallenge.Exceptions;
+using R365CalculatorChallenge.Helpers;
 using R365CalculatorChallenge.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,22 @@ namespace R365CalculatorChallenge.Services
 {
     public class AdditionService : ICalculationService
     {
+        // supported default delimiters, list format so we can append
+        List<char> lstSupportedDelimiters = new List<char>() { ',', '\n' };
+        
         public double Calculate(string input)
         {
-            // split the string on allowed delimiters (',' and '\n')
-            var numbers = input.Split(new[] { ',', '\n' }, StringSplitOptions.None);
+            // we need to see if the user is supplying a custom character delimter
+            (bool hasCustomInput, char customDelimiter) = InputParser.ParseInputForCustomDelimter(input);
+
+            // if it has a custom input, we want to append it to the list of acceptable delims
+            if (hasCustomInput)
+            {
+                lstSupportedDelimiters.Add(customDelimiter);
+            }
+
+            // split the string on allowed delimiters (',' and '-'), changed to use a list so we can add (Req6)
+            var numbers = input.Split(lstSupportedDelimiters.ToArray(), StringSplitOptions.None);
 
             // keep this for tracking total(s)
             double sum = 0;

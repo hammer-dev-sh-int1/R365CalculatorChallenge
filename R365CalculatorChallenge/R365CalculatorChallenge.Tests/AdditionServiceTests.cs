@@ -126,5 +126,15 @@ namespace R365CalculatorChallenge.Tests
             // make assert(s)
             Assert.AreEqual(8, result);
         }
+
+        [TestMethod]
+        public void Calculate_ValidInput_CustomDelimiter_ReturnsCorrectSum_CommaDelimiter()
+        {
+            string input = "//#\n2#5";
+            double result = _calculationService.Calculate(input);
+
+            // make assert(s)
+            Assert.AreEqual(7, result);
+        }
     }
 }
