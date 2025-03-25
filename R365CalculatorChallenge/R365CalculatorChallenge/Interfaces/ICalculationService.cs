@@ -9,6 +9,7 @@ namespace R365CalculatorChallenge.Interfaces
 {
     public interface ICalculationService
     {
-        CalculationResult Calculate(string input);
+        CalculationResult Calculate(string input, string delimiter = "", bool denyNegativeNumbers = true,
+                                                                                            double upperBoundLimit = 1000);
     }
 }
