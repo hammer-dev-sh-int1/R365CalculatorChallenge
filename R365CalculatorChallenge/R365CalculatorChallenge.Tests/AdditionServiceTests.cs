@@ -149,14 +149,14 @@ namespace R365CalculatorChallenge.Tests
         }
 
         [TestMethod]
-        public void Calculate_ValidInput_MultipleCustomDelimiter_AnyLength_ReturnsCorrectSum_CommaDelimiter()
+        public void Calculate_ValidInput_MultipleCustomDelimiter_AnyLength_ReturnsCorrectSum()
         {
             string input = "//[*][!!][r9r]\n11r9r22*hh*33!!44";
             CalculationResult result = _calculationService.Calculate(input);
 
             // make assert(s)
             Assert.AreEqual(110, result.Sum);
-        }
+        }        
 
         [TestMethod]
         public void Calculate_ValidInput_ValidatesStepsInFormula()
